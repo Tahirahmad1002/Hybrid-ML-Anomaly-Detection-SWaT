@@ -1,220 +1,159 @@
+# Hybrid Machine Learning Approach for Anomaly Detection in Cyber-Physical Systems
 
-Hybrid Machine Learning Approach for Anomaly Detection in Cyber-Physical Systems
-[![open in colab](https://colab.research.google.com/assets/colab-badge.svg)]([LINK_TO_NOTEBOOK](https://colab.research.google.com/drive/1mpOeOE1nDhgYZyYTpY0CqC-lafnftKh1?usp=sharing))
 ![python](https://img.shields.io/badge/python-3.8+-blue)
 ![machine-learning](https://img.shields.io/badge/machine-learning-cps-green)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]([PASTE_YOUR_COLAB_LINK_HERE](https://colab.research.google.com/drive/1mpOeOE1nDhgYZyYTpY0CqC-lafnftKh1?usp=sharing))
 
-📌 Project Overview
+---
 
-This repository presents a hybrid machine learning–based anomaly detection system for Cyber-Physical Systems (CPS) using the Secure Water Treatment (SWaT) dataset.
-The project combines supervised and unsupervised learning techniques to detect both known cyber-attacks and previously unseen (zero-day) anomalies in industrial control systems.
+## 📌 Project Overview
 
-The hybrid approach integrates:
+This repository implements a **hybrid machine learning anomaly detection system** for **Cyber-Physical Systems (CPS)** using the **SWaT dataset**.  
 
-Random Forest (RF) for detecting known attack patterns
+The system combines:  
+- **Random Forest (RF)** → detects **known attacks**  
+- **LSTM Autoencoder (LSTM-AE)** → detects **unknown anomalies**  
+- **Hybrid Fusion Strategy** → combines both models for better reliability  
 
-LSTM Autoencoder (LSTM-AE) for detecting unknown anomalies through reconstruction error
+The project is implemented in **Python** using **Google Colab**, and demonstrates high performance in industrial control anomaly detection.
 
-A fusion strategy to improve robustness and reduce false negatives
+---
 
-This work was implemented and executed using Google Colab, and the results demonstrate that the hybrid model outperforms individual models.
+## 🎯 Problem Motivation
 
-🎯 Problem Motivation
+Cyber-Physical Systems like water treatment plants are critical infrastructure. A single anomaly can cause:  
+- **Water contamination**  
+- **Equipment damage**  
+- **Service disruption**  
 
-Cyber-Physical Systems such as water treatment plants are critical infrastructures.
-A successful cyber attack can lead to:
+Traditional detection systems face challenges like:  
+- **Class imbalance**  
+- **Temporal dependencies**  
+- **Zero-day attacks**  
 
-Water contamination
+The hybrid approach addresses these challenges effectively.
 
-Equipment damage
+---
 
-Public safety risks
+## 📊 Dataset Description
 
-Large-scale service disruption
+**Dataset:** Secure Water Treatment (SWaT)  
+**Key Characteristics:**  
+- 51 sensor & actuator features  
+- 11 days of continuous operation  
+- 36 cyber-attack scenarios  
+- Binary labels: `0` → Normal, `1` → Attack  
+- Highly imbalanced (~88% normal, ~12% attack)
 
-Traditional detection systems struggle with:
+> ⚠️ Note: SWaT dataset is **not included** in this repository. You must request access officially.
 
-Class imbalance
+---
 
-Temporal dependencies
+## 🧠 Methodology
 
-Novel (unseen) attacks
+1. **Data Preprocessing**
+   - Missing value handling  
+   - Min–Max normalization  
+   - Feature selection & train-test split (70% / 30%)
 
-This project addresses these challenges using a hybrid ML approach.
+2. **Random Forest Classifier (Supervised)**
+   - Captures known attack patterns  
+   - Handles high-dimensional features  
+   - Robust to class imbalance
 
-📊 Dataset Description
+3. **LSTM Autoencoder (Unsupervised)**
+   - Trained only on **normal sequences**  
+   - Detects anomalies via **reconstruction error**  
 
-Dataset: Secure Water Treatment (SWaT)
-Developed by: Singapore University of Technology and Design (SUTD)
+4. **Hybrid Fusion Strategy**
+   - Combines **RF predictions** and **AE reconstruction error**  
+   - Reduces false negatives
 
-Key characteristics:
+---
 
-51 sensor and actuator features
+## 🧪 Experimental Results
 
-Time-series industrial data
+**Performance Metrics:**
 
-11 days of continuous operation
+| Model            | Accuracy | Precision | Recall | F1-Score |
+|------------------|----------|-----------|--------|----------|
+| Random Forest    | 92%      | 90%       | 88%    | 89%      |
+| LSTM Autoencoder | 95%      | 93%       | 94%    | 93%      |
+| **Hybrid Model** | **97%**  | **96%**   | **97%**| **96%**  |
 
-36 cyber-attack scenarios
+**Observations:**  
+- RF is strong on known attacks  
+- LSTM-AE captures unseen anomalies  
+- Hybrid model outperforms both  
 
-Binary labels:
+---
 
-0 → Normal
+## 📂 Repository Structure
 
-1 → Attack
-
-Highly imbalanced dataset (~88% normal, ~12% attack)
-
-⚠️ Note:
-The SWaT dataset is restricted and not included in this repository.
-Users must request access from the official source.
-
-🧠 Methodology
-
-The project follows a structured machine learning pipeline:
-
-1️⃣ Data Preprocessing
-
-Handling missing values
-
-Min–Max normalization
-
-Feature scaling
-
-Stratified train–test split (70% / 30%)
-
-2️⃣ Random Forest Classifier (Supervised)
-
-Learns from labeled attack data
-
-Handles high-dimensional features
-
-Robust to class imbalance using class weights
-
-Captures non-linear relationships
-
-3️⃣ LSTM Autoencoder (Unsupervised)
-
-Trained only on normal behavior
-
-Captures temporal dependencies in sensor data
-
-Detects anomalies using reconstruction error
-
-Threshold set using percentile-based strategy
-
-4️⃣ Hybrid Fusion Strategy
-
-Final anomaly decision is made by combining:
-
-Random Forest prediction
-
-LSTM-AE reconstruction error
-
-This fusion improves recall and reduces false negatives.
-
-🧪 Experimental Results
-🔍 Model Performance Comparison
-Model	Accuracy	Precision	Recall	F1-Score
-Random Forest	92%	90%	88%	89%
-LSTM Autoencoder	95%	93%	94%	93%
-Hybrid Model	97%	96%	97%	96%
-✔ Key Observations
-
-Random Forest performs well on known attacks
-
-LSTM Autoencoder detects unseen anomalies
-
-Hybrid model achieves the best overall performance
-
-High recall ensures minimal missed attacks
-
-📂 Repository Structure
 Hybrid-ML-Anomaly-Detection-SWaT/
 │
 ├── notebook/
-│   └── Hybrid_ML_Anomaly_Detection_SWaT.ipynb
-│
+│ └── Hybrid_ML_Anomaly_Detection_SWaT.ipynb
 ├── report/
-│   └── Hybrid_ML_Anomaly_Detection_SWaT.pdf
-│
+│ └── Hybrid_ML_Anomaly_Detection_SWaT.pdf
 ├── results/
-│   ├── accuracy_plot.png
-│   └── confusion_matrix.png
-│
+│ ├── accuracy_plot.png
+│ └── confusion_matrix.png
 ├── requirements.txt
 └── README.md
 
-▶️ How to Run the Project
-1️⃣ Clone the Repository
+yaml
+Copy code
+
+---
+
+## ▶️ How to Run
+
+1. **Clone the repository:**
+```bash
 git clone https://github.com/your-username/Hybrid-ML-Anomaly-Detection-SWaT.git
 cd Hybrid-ML-Anomaly-Detection-SWaT
+Install dependencies:
 
-2️⃣ Install Dependencies
+bash
+Copy code
 pip install -r requirements.txt
-
-3️⃣ Run the Notebook
+Run the notebook in Jupyter or Google Colab:
 
 Open notebook/Hybrid_ML_Anomaly_Detection_SWaT.ipynb
 
-Run cells sequentially in Jupyter Notebook or Google Colab
+Run all cells sequentially
 
 ⚙️ Requirements
-
-The project uses the following libraries:
-
 Python 3.8+
 
-NumPy
+Libraries:
 
-Pandas
+numpy, pandas, matplotlib, seaborn
 
-Matplotlib
+scikit-learn
 
-Seaborn
-
-Scikit-learn
-
-TensorFlow / Keras
+tensorflow, keras
 
 All dependencies are listed in requirements.txt.
 
-📄 Project Report
-
-A detailed academic report explaining:
-
-Problem formulation
-
-Literature review
-
-Model design
-
-Experimental results
-
-Discussion and conclusion
-
-📄 Report available in:
-/report/Hybrid_ML_Anomaly_Detection_SWaT.pdf
-
 🚀 Future Improvements
+Real-time anomaly detection
 
-Real-time streaming anomaly detection
+Explainable AI (SHAP)
 
-Explainable AI (SHAP / feature attribution)
-
-Deployment on edge or PLC-integrated systems
+Deployment on edge devices / PLCs
 
 Evaluation on additional CPS datasets
 
-Transformer-based temporal models
+Transformer-based models for better temporal analysis
 
 👨‍💻 Author
-
 Tahir Ahmad
-Software Engineering Student
-Domain: Artificial Intelligence & Cybersecurity
+Software Engineering Student | AI & Cybersecurity
 
 📜 License
+This project is for educational and internship purposes.
+Free to use and modify with proper attribution.
 
-This project is developed for educational, research, and internship purposes.
-You are free to use and extend it with proper attribution.
+⭐ If you find this project helpful, please give it a star!
